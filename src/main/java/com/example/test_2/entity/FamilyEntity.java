@@ -13,7 +13,7 @@ import java.util.List;
 public class FamilyEntity {
     @Id
     @Column(name = "family_id")
-    private int familyId;
+    private Long familyId;
 
     @Column(name = "father_name")
     private String fatherName;

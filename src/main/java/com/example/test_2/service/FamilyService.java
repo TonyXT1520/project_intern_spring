@@ -8,11 +8,13 @@ import com.example.test_2.response.FamilyResponse;
 import java.util.List;
 
 public interface FamilyService{
-    //FamilyResponse addFamily(FamilyRequest familyRequest);
+    FamilyEntity addFamily(FamilyEntity familyEntity);
 
-    List<FamilyResponse> fetchFamilyList();
+    FamilyResponse updateFamily(Long familyId, FamilyRequest familyRequest);
 
-    FamilyResponse findFamilyById(Integer famiyId);
+    List<FamilyEntity> fetchFamilyList();
 
-    void deleteFamilyById(Integer familyId);
+    FamilyResponse findFamilyById(Long famiyId);
+
+    void deleteFamilyById(Long familyId);
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClassResponse {
-    private Integer classId;
+    private Long classId;
     private String className;
     private String gradeLevel;
 }

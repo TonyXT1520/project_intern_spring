@@ -9,6 +9,7 @@ import com.example.test_2.request.FamilyRequest;
 import com.example.test_2.response.FamilyResponse;
 import com.example.test_2.response.TuitionResponse;
 import com.example.test_2.service.FamilyService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,30 +24,42 @@ public class FamilyServiceImplement implements FamilyService {
     @Autowired
     private FamilyRepository familyRepository;
 
-//    @Override
-//    public FamilyResponse addFamily(FamilyRequest familyRequest) {
-//        FamilyEntity insertFamily = new FamilyEntity();
-//        insertFamily.setFatherName(familyRequest.getFatherName());
-//        insertFamily.setMotherName(familyRequest.getMotherName());
-//
-//        FamilyEntity addFamily = familyRepository.save(insertFamily);
-//        return mapToResponse(addFamily);
-//    }
-
     @Override
-    public List<FamilyResponse> fetchFamilyList() {
-        List<FamilyEntity> familyEntities = familyRepository.findAll();
-        return familyEntities.stream().map(this::mapToResponse).collect(Collectors.toList());
+    @Transactional
+    public FamilyEntity addFamily(FamilyEntity familyEntity) {
+        FamilyEntity insertFamily = new FamilyEntity();
+        insertFamily.setFatherName(familyEntity.getFatherName());
+        insertFamily.setMotherName(familyEntity.getMotherName());
+
+        FamilyEntity addFamily = familyRepository.save(insertFamily);
+        return null;
     }
 
     @Override
-    public FamilyResponse findFamilyById(Integer famiyId) {
+    public FamilyResponse updateFamily(Long familyId, FamilyRequest familyRequest) {
+        FamilyEntity upload = familyRepository.findById(familyId).orElseThrow(()->new RuntimeException("family not found"));
+        upload.setFatherPhone(familyRequest.getFatherPhone());
+        upload.setMotherPhone(familyRequest.getMotherPhone());
+
+        FamilyEntity familyEntity = familyRepository.save(upload);
+        return mapToResponse(familyEntity);
+    }
+
+    @Override
+    public List<FamilyEntity> fetchFamilyList() {
+        //List<FamilyEntity> familyEntities = familyRepository.findAll();
+        //familyEntities.stream().map(this::mapToResponse).collect(Collectors.toList());
+        return familyRepository.findAll();
+    }
+
+    @Override
+    public FamilyResponse findFamilyById(Long famiyId) {
         Optional<FamilyEntity> optionalFamily = familyRepository.findById(famiyId);
         return optionalFamily.map(this::mapToResponse).orElse(null);
     }
 
     @Override
-    public void deleteFamilyById(Integer familyId) {
+    public void deleteFamilyById(Long familyId) {
         familyRepository.deleteById(familyId);
     }
 

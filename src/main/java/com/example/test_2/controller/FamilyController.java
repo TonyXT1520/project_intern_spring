@@ -21,22 +21,27 @@ public class FamilyController {
     private FamilyService familyService;
 
     @GetMapping("/allFamily")
-    public List<FamilyResponse> fetchFamilyList() {
+    public List<FamilyEntity> fetchFamilyList() {
         return familyService.fetchFamilyList();
     }
 
     @GetMapping("/{id}")
-    public FamilyResponse finFamilyById(@PathVariable("id") Integer familyId){
+    public FamilyResponse finFamilyById(@PathVariable("id") Long familyId){
         return familyService.findFamilyById(familyId);
     }
 
-//    @PostMapping("/addFamily")
-//    public FamilyResponse addFamilyById(@RequestBody FamilyRequest familyRequest){
-//        return familyService.addFamily(familyRequest);
-//    }
+    @PostMapping("/addFamily")
+    public FamilyEntity addFamilyById(@RequestBody FamilyEntity familyEntity){
+        return familyService.addFamily(familyEntity);
+    }
+
+    @PutMapping("/updateFamily/{id}")
+    public FamilyResponse updateFamily(@PathVariable("id") Long familyId, @RequestBody FamilyRequest familyRequest){
+        return familyService.updateFamily(familyId, familyRequest);
+    }
 
     @DeleteMapping("/deleteTuition/{id}")
-    public String deleteFamily(@PathVariable("id") Integer familyId){
+    public String deleteFamily(@PathVariable("id") Long familyId){
         familyService.deleteFamilyById(familyId);
         return "Deleted Successfully";
     }

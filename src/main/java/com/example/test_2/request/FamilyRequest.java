@@ -7,5 +7,7 @@ import lombok.Setter;
 @Setter
 public class FamilyRequest {
     private String fatherName;
+    private String fatherPhone;
     private String motherName;
+    private String motherPhone;
 }

@@ -16,27 +16,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/medical")
 public class MedicalController {
-    @Autowired
-    private MedicalService medicalService;
-
-    @GetMapping("/allMedical")
-    public List<MedicalResponse> fetchMedicalList() {
-        return medicalService.fetchMedicalList();
-    }
-
-    @GetMapping("/{id}")
-    public MedicalResponse findMedicalById(@PathVariable("id") Integer medicalId){
-        return medicalService.FindMedicalById(medicalId);
-    }
-
-//    @PostMapping("/addMedical")
-//    public MedicalResponse addMedical(@RequestBody MedicalRequest medicalRequest){
-//        return medicalService.addMedical(medicalRequest);
+//    @Autowired
+//    private MedicalService medicalService;
+//
+//    @GetMapping("/allMedical")
+//    public List<MedicalResponse> fetchMedicalList() {
+//        return medicalService.fetchMedicalList();
 //    }
-
-    @DeleteMapping("/deleteMedical/{id}")
-    public String deleteMedical(@PathVariable("id") Integer medicalId){
-        medicalService.deleteMedicalById(medicalId);
-        return "Deleted Successfully";
-    }
+//
+//    @GetMapping("/{id}")
+//    public MedicalResponse findMedicalById(@PathVariable("id") Long medicalId){
+//        return medicalService.FindMedicalById(medicalId);
+//    }
+//
+//    @PostMapping("/addMedical/{id}")
+//    public MedicalEntity addMedical(@PathVariable("id") Long studentId,@RequestBody MedicalEntity medicalEntity){
+//        return medicalService.addMedical(studentId, medicalEntity);
+//    }
+//
+//    @PutMapping("/updateMedical/{id}")
+//    public MedicalResponse updateMedical(@PathVariable("id") Long medicalId,@RequestBody MedicalRequest medicalRequest){
+//        return medicalService.updateMedical(medicalId, medicalRequest);
+//    }
+//
+//    @DeleteMapping("/deleteMedical/{id}")
+//    public String deleteMedical(@PathVariable("id") Long medicalId){
+//        medicalService.deleteMedicalById(medicalId);
+//        return "Deleted Successfully";
+//    }
 }

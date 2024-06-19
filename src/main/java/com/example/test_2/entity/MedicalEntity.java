@@ -16,10 +16,7 @@ import java.util.List;
 public class MedicalEntity {
     @Id
     @Column(name = "medical_id")
-    private int medicalId;
-
-    @Column(name = "student_id", updatable = false, insertable = false)
-    private int studentId;
+    private Long medicalId;
 
     @Column(name = "health_status")
     private String healthStatus;

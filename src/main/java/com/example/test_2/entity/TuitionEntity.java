@@ -14,10 +14,7 @@ import lombok.NoArgsConstructor;
 public class TuitionEntity {
     @Id
     @Column(name = "tuition_id")
-    private int tuitionId;
-
-    @Column(name = "student_id", updatable = false, insertable = false)
-    private int studentId;
+    private Long tuitionId;
 
     @Column(name = "amount")
     private Double amount;

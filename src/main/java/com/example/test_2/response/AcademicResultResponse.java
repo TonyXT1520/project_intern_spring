@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AcademicResultResponse {
-    private Integer resultId;
+    private Long resultId;
     private String subject;
     private String score;
     private String semester;

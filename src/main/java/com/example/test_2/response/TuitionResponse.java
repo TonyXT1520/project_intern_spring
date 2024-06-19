@@ -6,9 +6,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TuitionResponse {
-    private Integer tuitionId;
+    private Long tuitionId;
     private Double amount;
+    private String paymentDays;
     private String paymentStatus;
-    private String paymentDate;
 
+    public TuitionResponse(Long tuitionId, Double amount, String paymentDays, String paymentStatus) {
+        this.tuitionId = tuitionId;
+        this.amount = amount;
+        this.paymentDays = paymentDays;
+        this.paymentStatus = paymentStatus;
+    }
 }

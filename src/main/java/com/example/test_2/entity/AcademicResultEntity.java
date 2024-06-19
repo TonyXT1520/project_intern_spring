@@ -15,7 +15,7 @@ public class AcademicResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "result_id")
-    private int resultId;
+    private Long resultId;
 
     @Column(name = "subject")
     private String subject;
@@ -29,11 +29,8 @@ public class AcademicResultEntity {
     @Column(name = "academic_year")
     private String academicYear;
 
-    @Column(name = "student_id", insertable = false, updatable = false)
-    private int studentId;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "academic_result_ibfk_1"))
+    @JoinColumn(name = "student_id", foreignKey = @ForeignKey (name = "academic_result_ibfk_1"))
     @JsonIgnore
     private StudentEntity studentEntity;
 }

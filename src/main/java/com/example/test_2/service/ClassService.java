@@ -7,11 +7,13 @@ import com.example.test_2.response.ClassResponse;
 import java.util.List;
 
 public interface ClassService {
-    //ClassResponse addClass(ClassRequest classRequest);
+    ClassEntity addClass(Long studentId,ClassEntity classEntity);
+
+    ClassResponse updateClass(Long classId,ClassRequest classRequest);
 
     List<ClassResponse> fetchClassList();
 
-    ClassResponse FindClassById(Integer classId);
+    ClassResponse FindClassById(Long classId);
 
-    void deleteClassById(Integer classId);
+    void deleteClassById(Long classId);
 }

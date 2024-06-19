@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FamilyResponse {
-    private Integer familyId;
+    private Long familyId;
     private String fatherName;
     private String motherName;
 }

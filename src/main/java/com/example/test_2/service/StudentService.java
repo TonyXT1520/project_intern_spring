@@ -7,13 +7,13 @@ import com.example.test_2.response.StudentResponse;
 import java.util.List;
 
 public interface StudentService {
-    StudentResponse addStudent(StudentRequest studentRequest);
+    StudentResponse addStudent(Long familyId, StudentEntity studentEntity);
 
-    List<StudentResponse> fetchStudentList();
+    List<StudentEntity> getAllStudents();
 
-    StudentResponse findStudentById(Integer studentId);
+    StudentResponse findStudentById(Long studentId);
 
-    StudentResponse updateStudent(StudentRequest studentRequest, Integer studentId);
+    StudentResponse updateStudent( Long studentId, StudentRequest studentRequest);
 
-    void deleteStudentById(Integer studentId);
+    void deleteStudentById(Long studentId);
 }

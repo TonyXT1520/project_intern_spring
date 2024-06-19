@@ -8,11 +8,13 @@ import com.example.test_2.response.AcademicResultResponse;
 import java.util.List;
 
 public interface AcademicResultService {
-    //AcademicResultResponse addAcademicResult(AcademicResultRequest academicResultRequest);
+    AcademicResultEntity addAcademicResult(Long studentId,AcademicResultEntity academicResultEntity);
+
+    AcademicResultResponse updateAcademicResult(Long resultId, AcademicResultRequest academicResultRequest);
 
     List<AcademicResultResponse> fetchAcademicResultList();
 
-    AcademicResultResponse FindAcademicResultById(Integer resultId);
+    AcademicResultResponse FindAcademicResultById(Long resultId);
 
-    void deleteAcademicResultById(Integer resultId);
+    void deleteAcademicResultById(Long resultId);
 }

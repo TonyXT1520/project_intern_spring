@@ -1,5 +1,6 @@
 package com.example.test_2.service;
 
+import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.entity.TuitionEntity;
 import com.example.test_2.request.TuitionRequest;
 import com.example.test_2.response.TuitionResponse;
@@ -7,11 +8,13 @@ import com.example.test_2.response.TuitionResponse;
 import java.util.List;
 
 public interface TuitionService {
-    //TuitionEntity addTuition(TuitionEntity tuitionEntity);
+    TuitionEntity addTuition(Long studentId, TuitionEntity tuitionEntity);
 
-    List<TuitionResponse> fetchTuitionList();
+    List<TuitionResponse> getAllTuitions();
 
-    TuitionResponse FindTuitionById(Integer tuitionId);
+    TuitionResponse FindTuitionById(Long tuitionId);
 
-    void deleteTuitionById(Integer tuitionId);
+    TuitionResponse updateTuition(TuitionRequest tuitionRequest, Long tuitionId);
+
+    void deleteTuitionById(Long tuitionId);
 }

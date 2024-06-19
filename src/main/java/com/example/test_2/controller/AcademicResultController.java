@@ -14,27 +14,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/AcademicResult")
 public class AcademicResultController {
-    @Autowired
-    private AcademicResultService academicResultService;
-
-    @GetMapping("/allAcademicResults")
-    public List<AcademicResultResponse> fetchAcademicList() {
-        return academicResultService.fetchAcademicResultList();
-    }
-
-    @GetMapping("/{id}")
-    public AcademicResultResponse findAcademicResultById(@PathVariable("id") Integer resultId){
-        return academicResultService.FindAcademicResultById(resultId);
-    }
-
-//    @PostMapping("/addTuition")
-//    public AcademicResultResponse addAcademicResult(@RequestBody AcademicResultRequest academicResultRequest){
-//        return academicResultService.addAcademicResult(academicResultRequest);
+//    @Autowired
+//    private AcademicResultService academicResultService;
+//
+//    @GetMapping("/allAcademicResults")
+//    public List<AcademicResultResponse> fetchAcademicList() {
+//        return academicResultService.fetchAcademicResultList();
 //    }
-
-    @DeleteMapping("/deleteAcademicResult/{id}")
-    public String deleteAcademicResult(@PathVariable("id") Integer resultId){
-        academicResultService.deleteAcademicResultById(resultId);
-        return "Deleted Successfully";
-    }
+//
+//    @GetMapping("/{id}")
+//    public AcademicResultResponse findAcademicResultById(@PathVariable("id") Long resultId){
+//        return academicResultService.FindAcademicResultById(resultId);
+//    }
+//
+//    @PostMapping("/addAcademicResults/{id}")
+//    public AcademicResultEntity addAcademicResult(@PathVariable("id") Long studentId,@RequestBody AcademicResultEntity academicResultEntity){
+//        return academicResultService.addAcademicResult(studentId, academicResultEntity);
+//    }
+//
+//    @PutMapping("/updateAcademicResult/{id}")
+//    public AcademicResultResponse updateAcademicResult(@PathVariable("id") Long resultId, @RequestBody AcademicResultRequest academicResultRequest){
+//        return academicResultService.updateAcademicResult(resultId, academicResultRequest);
+//    }
+//
+//    @DeleteMapping("/deleteAcademicResult/{id}")
+//    public String deleteAcademicResult(@PathVariable("id") Long resultId){
+//        academicResultService.deleteAcademicResultById(resultId);
+//        return "Deleted Successfully";
+//    }
 }

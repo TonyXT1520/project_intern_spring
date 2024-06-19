@@ -4,10 +4,12 @@ import com.example.test_2.entity.FamilyEntity;
 import com.example.test_2.entity.MedicalEntity;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.repository.MedicalRepository;
+import com.example.test_2.repository.StudentRepository;
 import com.example.test_2.request.MedicalRequest;
 import com.example.test_2.response.FamilyResponse;
 import com.example.test_2.response.MedicalResponse;
 import com.example.test_2.service.MedicalService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,15 +22,33 @@ public class MedicalServiceImplement implements MedicalService {
     @Autowired
     private MedicalRepository medicalRepository;
 
-//    @Override
-//    public MedicalResponse addMedical(MedicalRequest medicalRequest) {
-//        MedicalEntity insertMedical = new MedicalEntity();
-//        insertMedical.setHealthStatus(medicalRequest.getHealthStatus());
-//        insertMedical.setVaccinationHistory(medicalRequest.getVaccinationHistory());
-//
-//        MedicalEntity addMedical = medicalRepository.save(insertMedical);
-//        return mapToResponse(addMedical);
-//    }
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Override
+    @Transactional
+    public MedicalEntity addMedical(Long studentId, MedicalEntity medicalEntity) {
+        StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
+
+        MedicalEntity insertMedical = new MedicalEntity();
+        insertMedical.setMedicalId(medicalEntity.getMedicalId());
+        insertMedical.setHealthStatus(medicalEntity.getHealthStatus());
+        insertMedical.setVaccinationHistory(medicalEntity.getVaccinationHistory());
+        insertMedical.setStudentEntity(studentEntity);
+
+        MedicalEntity addMedical = medicalRepository.save(insertMedical);
+        return null;
+    }
+    @Override
+    @Transactional
+    public MedicalResponse updateMedical(Long medicalId, MedicalRequest medicalRequest){
+        MedicalEntity upload = medicalRepository.findById(medicalId).orElseThrow(()->new RuntimeException("medical not found"));
+        upload.setHealthStatus(medicalRequest.getHealthStatus());
+        upload.setVaccinationHistory(medicalRequest.getVaccinationHistory());
+
+        MedicalEntity medicalEntity = medicalRepository.save(upload);
+        return mapToResponse(medicalEntity);
+    }
 
     @Override
     public List<MedicalResponse> fetchMedicalList() {
@@ -37,22 +57,20 @@ public class MedicalServiceImplement implements MedicalService {
     }
 
     @Override
-    public MedicalResponse FindMedicalById(Integer medicalId) {
+    public MedicalResponse FindMedicalById(Long medicalId) {
         Optional<MedicalEntity> optionalMedical = medicalRepository.findById(medicalId);
         return optionalMedical.map(this::mapToResponse).orElse(null);
     }
 
     @Override
-    public void deleteMedicalById(Integer medicalId) {
+    public void deleteMedicalById(Long medicalId) {
         medicalRepository.deleteById(medicalId);
     }
 
     private MedicalResponse mapToResponse(MedicalEntity medicalEntity){
-        MedicalResponse medicalResponse = new MedicalResponse();
-        medicalResponse.setMedicalId(medicalEntity.getMedicalId());
-        medicalResponse.setHealthStatus(medicalEntity.getHealthStatus());
-        medicalResponse.setVaccinationHistory(medicalEntity.getVaccinationHistory());
 
-        return medicalResponse;
+        return new MedicalResponse(medicalEntity.getMedicalId(), medicalEntity.getHealthStatus(), medicalEntity.getVaccinationHistory());
     }
+
+
 }

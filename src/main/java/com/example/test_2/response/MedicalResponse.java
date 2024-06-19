@@ -6,7 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MedicalResponse {
-    private Integer medicalId;
+    private Long medicalId;
     private String healthStatus;
     private String vaccinationHistory;
+
+    public MedicalResponse(Long medicalId, String healthStatus, String vaccinationHistory) {
+        this.medicalId = medicalId;
+        this.healthStatus = healthStatus;
+        this.vaccinationHistory = vaccinationHistory;
+    }
 }

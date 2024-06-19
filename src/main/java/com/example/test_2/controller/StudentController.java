@@ -16,28 +16,27 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping("/allStudents")
-    public List<StudentResponse> fetchStudenList(){
-        return studentService.fetchStudentList();
+    public List<StudentEntity> fetchStudenList(){
+        return studentService.getAllStudents();
     }
 
     @GetMapping("/{id}")
-    public StudentResponse findStudentById(@PathVariable("id") Integer studentId){
+    public StudentResponse findStudentById(@PathVariable("id") Long studentId){
         return studentService.findStudentById(studentId);
     }
 
-    @PostMapping("/addStudent")
-    public StudentResponse addStudent(@RequestBody StudentRequest studentRequest){
-
-        return studentService.addStudent(studentRequest);
+    @PostMapping("/addStudent/{id}")
+    public StudentResponse addStudent(@PathVariable("id") Long familyId,@RequestBody StudentEntity studentEntity){
+        return studentService.addStudent(familyId, studentEntity);
     }
 
     @PutMapping("/updateStudents/{id}")
-    public StudentResponse updateStudent(@RequestBody StudentRequest studentRequest, @PathVariable("id") Integer studentId){
-        return studentService.updateStudent(studentRequest, studentId);
+    public StudentResponse updateStudent(@RequestBody StudentRequest studentRequest, @PathVariable("id") Long studentId){
+        return studentService.updateStudent(studentId, studentRequest);
     }
 
     @DeleteMapping("/deleteStudents/{id}")
-    public String deleteStudent(@PathVariable("id") Integer studentId){
+    public String deleteStudent(@PathVariable("id") Long studentId){
         studentService.deleteStudentById(studentId);
         return "Deleted Successfully";
     }

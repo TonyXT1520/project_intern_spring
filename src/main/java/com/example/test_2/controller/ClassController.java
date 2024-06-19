@@ -24,17 +24,22 @@ public class ClassController {
     }
 
     @GetMapping("/{id}")
-    public ClassResponse findClassById(@PathVariable("id") Integer classId){
+    public ClassResponse findClassById(@PathVariable("id") Long classId){
         return classService.FindClassById(classId);
     }
 
-//    @PostMapping("/addClass")
-//    public ClassResponse addClass(@RequestBody ClassRequest classRequest){
-//        return classService.addClass(classRequest);
-//    }
+    @PostMapping("/addClass/{id}")
+    public ClassEntity addClass(@PathVariable("id") Long studentId,@RequestBody ClassEntity classEntity){
+        return classService.addClass(studentId, classEntity);
+    }
+
+    @PutMapping("/updateClass/{id}")
+    public ClassResponse updateClass(@PathVariable("id") Long classId, @RequestBody ClassRequest classRequest){
+        return classService.updateClass(classId, classRequest);
+    }
 
     @DeleteMapping("/deleteClass/{id}")
-    public String deleteClass(@PathVariable("id") Integer classId){
+    public String deleteClass(@PathVariable("id") Long classId){
         classService.deleteClassById(classId);
         return "Deleted Successfully";
     }
