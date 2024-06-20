@@ -1,13 +1,14 @@
 package com.example.test_2.service;
 
 import com.example.test_2.entity.StudentEntity;
+import com.example.test_2.request.StudentAddRequest;
 import com.example.test_2.request.StudentRequest;
 import com.example.test_2.response.StudentResponse;
 
 import java.util.List;
 
 public interface StudentService {
-    StudentResponse addStudent(Long familyId, StudentEntity studentEntity);
+    StudentResponse addStudent(Long familyId, StudentAddRequest studentAddRequest);
 
     List<StudentEntity> getAllStudents();
 

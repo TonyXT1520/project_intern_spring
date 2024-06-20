@@ -5,6 +5,7 @@ import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.entity.TuitionEntity;
 import com.example.test_2.repository.FamilyRepository;
 import com.example.test_2.repository.StudentRepository;
+import com.example.test_2.request.StudentAddRequest;
 import com.example.test_2.request.StudentRequest;
 import com.example.test_2.response.StudentResponse;
 import com.example.test_2.response.TuitionResponse;
@@ -28,17 +29,17 @@ public class StudentServiceImplement implements StudentService {
     private FamilyRepository familyRepository;
 
     @Override
-    public StudentResponse addStudent(Long familyId, StudentEntity studentEntity) {
+    public StudentResponse addStudent(Long familyId, StudentAddRequest studentAddRequest) {
         FamilyEntity familyEntity = familyRepository.findById(familyId).orElseThrow(()->new RuntimeException("family not found"));
 
         StudentEntity insertEntity = new StudentEntity();
-        insertEntity.setStudentId(studentEntity.getStudentId());
-        insertEntity.setFullName(studentEntity.getFullName());
-        insertEntity.setDayofBirth(studentEntity.getDayofBirth());
-        insertEntity.setGender(studentEntity.getGender());
-        insertEntity.setAddress(studentEntity.getAddress());
-        insertEntity.setPhone(studentEntity.getPhone());
-        insertEntity.setEmail(studentEntity.getEmail());
+        insertEntity.setStudentId(studentAddRequest.getStudentId());
+        insertEntity.setFullName(studentAddRequest.getFullName());
+        insertEntity.setDayofBirth(studentAddRequest.getDateOfBirth());
+        insertEntity.setGender(studentAddRequest.getGender());
+        insertEntity.setAddress(studentAddRequest.getAddress());
+        insertEntity.setPhone(studentAddRequest.getPhone());
+        insertEntity.setEmail(studentAddRequest.getEmail());
         insertEntity.setFamilyEntity(familyEntity);
 
         StudentEntity studentEntity1 = studentRepository.save(insertEntity);
@@ -65,12 +66,11 @@ public class StudentServiceImplement implements StudentService {
     public StudentResponse updateStudent(Long studentId, StudentRequest studentRequest) {
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
 
-        StudentEntity upload = new StudentEntity();
-        upload.setAddress(studentRequest.getAddress());
-        upload.setPhone(studentRequest.getPhone());
-        upload.setEmail(studentRequest.getEmail());
+        studentEntity.setAddress(studentRequest.getAddress());
+        studentEntity.setPhone(studentRequest.getPhone());
+        studentEntity.setEmail(studentRequest.getEmail());
 
-        StudentEntity uploadstudent = studentRepository.save(upload);
+        StudentEntity uploadstudent = studentRepository.save(studentEntity);
         return mapToResponse(uploadstudent);
     }
 
@@ -83,6 +83,8 @@ public class StudentServiceImplement implements StudentService {
         StudentResponse studentResponse = new StudentResponse();
         studentResponse.setStudentId(studentEntity.getStudentId());
         studentResponse.setFullName(studentEntity.getFullName());
+        studentResponse.setDateOfBirth(studentResponse.getDateOfBirth());
+        studentResponse.setGender(studentResponse.getGender());
         studentResponse.setAddress(studentEntity.getAddress());
         studentResponse.setPhone(studentEntity.getPhone());
         studentResponse.setEmail(studentEntity.getEmail());

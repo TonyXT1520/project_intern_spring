@@ -1,6 +1,7 @@
 package com.example.test_2.controller;
 
 import com.example.test_2.entity.StudentEntity;
+import com.example.test_2.request.StudentAddRequest;
 import com.example.test_2.request.StudentRequest;
 import com.example.test_2.response.StudentResponse;
 import com.example.test_2.service.StudentService;
@@ -26,12 +27,12 @@ public class StudentController {
     }
 
     @PostMapping("/addStudent/{id}")
-    public StudentResponse addStudent(@PathVariable("id") Long familyId,@RequestBody StudentEntity studentEntity){
-        return studentService.addStudent(familyId, studentEntity);
+    public StudentResponse addStudent(@PathVariable("id") Long familyId,@RequestBody StudentAddRequest studentAddRequest){
+        return studentService.addStudent(familyId, studentAddRequest);
     }
 
     @PutMapping("/updateStudents/{id}")
-    public StudentResponse updateStudent(@RequestBody StudentRequest studentRequest, @PathVariable("id") Long studentId){
+    public StudentResponse updateStudent(@PathVariable("id") Long studentId,@RequestBody StudentRequest studentRequest){
         return studentService.updateStudent(studentId, studentRequest);
     }
 
