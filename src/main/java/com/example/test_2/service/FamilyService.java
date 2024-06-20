@@ -8,7 +8,7 @@ import com.example.test_2.response.FamilyResponse;
 import java.util.List;
 
 public interface FamilyService{
-    FamilyEntity addFamily(FamilyEntity familyEntity);
+    FamilyResponse addFamily(FamilyRequest familyRequest);
 
     FamilyResponse updateFamily(Long familyId, FamilyRequest familyRequest);
 

@@ -26,13 +26,16 @@ public class FamilyServiceImplement implements FamilyService {
 
     @Override
     @Transactional
-    public FamilyEntity addFamily(FamilyEntity familyEntity) {
+    public FamilyResponse addFamily(FamilyRequest familyRequest) {
         FamilyEntity insertFamily = new FamilyEntity();
-        insertFamily.setFatherName(familyEntity.getFatherName());
-        insertFamily.setMotherName(familyEntity.getMotherName());
+        insertFamily.setFamilyId(familyRequest.getFamiliId());
+        insertFamily.setFatherName(familyRequest.getFatherName());
+        insertFamily.setFatherPhone(familyRequest.getFatherPhone());
+        insertFamily.setMotherName(familyRequest.getMotherName());
+        insertFamily.setMotherPhone(familyRequest.getMotherPhone());
 
         FamilyEntity addFamily = familyRepository.save(insertFamily);
-        return null;
+        return mapToResponse(addFamily);
     }
 
     @Override
@@ -67,7 +70,9 @@ public class FamilyServiceImplement implements FamilyService {
         FamilyResponse familyResponse = new FamilyResponse();
         familyResponse.setFamilyId(familyEntity.getFamilyId());
         familyResponse.setFatherName(familyEntity.getFatherName());
+        familyResponse.setFatherPhone(familyResponse.getFatherPhone());
         familyResponse.setMotherName(familyEntity.getMotherName());
+        familyResponse.setMotherPhone(familyEntity.getMotherPhone());
 
         return familyResponse;
     }

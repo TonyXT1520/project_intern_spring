@@ -31,8 +31,8 @@ public class FamilyController {
     }
 
     @PostMapping("/addFamily")
-    public FamilyEntity addFamilyById(@RequestBody FamilyEntity familyEntity){
-        return familyService.addFamily(familyEntity);
+    public FamilyResponse addFamilyById(@RequestBody FamilyRequest familyRequest){
+        return familyService.addFamily(familyRequest);
     }
 
     @PutMapping("/updateFamily/{id}")

@@ -8,5 +8,7 @@ import lombok.Setter;
 public class FamilyResponse {
     private Long familyId;
     private String fatherName;
+    private String fatherPhone;
     private String motherName;
+    private String motherPhone;
 }
