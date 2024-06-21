@@ -1,5 +1,6 @@
 package com.example.test_2.response;
 
+import com.example.test_2.entity.ClassEntity;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.entity.TuitionEntity;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,6 +25,7 @@ public class StudentResponse {
     private String email;
 
     //private List<TuitionEntity> tuitionEntities;
+    private List<ClassResponse> classResponses;
 
     public static StudentResponse mapToResponse(StudentEntity studentEntity){
         StudentResponse studentResponse = new StudentResponse();
@@ -33,6 +36,12 @@ public class StudentResponse {
         studentResponse.setAddress(studentEntity.getAddress());
         studentResponse.setPhone(studentEntity.getPhone());
         studentResponse.setEmail(studentEntity.getEmail());
+
+        List<ClassResponse> classResponses = new ArrayList<>();
+        for(ClassEntity classEntity: studentEntity.getClassEntities()){
+            classResponses.add(ClassResponse.mapToResponse(classEntity));
+        }
+        studentResponse.setClassResponses(classResponses);
 
         return studentResponse;
     }

@@ -1,9 +1,11 @@
 package com.example.test_2.service.implement;
 
 import com.example.test_2.config.Validate;
+import com.example.test_2.entity.ClassEntity;
 import com.example.test_2.entity.FamilyEntity;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.entity.TuitionEntity;
+import com.example.test_2.repository.ClassRepository;
 import com.example.test_2.repository.FamilyRepository;
 import com.example.test_2.repository.StudentRepository;
 import com.example.test_2.request.StudentAddRequest;
@@ -28,6 +30,9 @@ public class StudentServiceImplement implements StudentService {
 
     @Autowired
     private FamilyRepository familyRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
 
     @Override
     public StudentResponse addStudent(Long familyId, StudentAddRequest studentAddRequest) {
@@ -88,6 +93,19 @@ public class StudentServiceImplement implements StudentService {
     @Override
     public void deleteStudentById(Long studentId) {
         studentRepository.deleteById(studentId);
+    }
+
+    @Override
+    public StudentEntity addClasstoStudent(Long studentId, Long classId) {
+        StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
+        ClassEntity classEntity = classRepository.findById(classId).orElseThrow(()->new RuntimeException("class not found"));
+
+        studentEntity.getClassEntities().add(classEntity);
+        classEntity.getStudentEntities().add(studentEntity);
+
+        studentRepository.save(studentEntity);
+        classRepository.save(classEntity);
+        return studentEntity;
     }
 
 }

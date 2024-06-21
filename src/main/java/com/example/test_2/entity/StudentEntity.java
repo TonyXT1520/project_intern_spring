@@ -28,10 +28,10 @@ public class StudentEntity {
     private String dayofBirth;
 
     @Column(name = "gender")
-    private String address;
+    private String gender;
 
     @Column(name = "address")
-    private String gender;
+    private String address;
 
     @Column(name = "phone")
     private String phone;
@@ -53,7 +53,13 @@ public class StudentEntity {
     @JsonIgnore
     private FamilyEntity familyEntity;
 
-    @ManyToMany(mappedBy = "studentEntities", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "class_has_student",
+            joinColumns = @JoinColumn(name = "class_id", foreignKey = @ForeignKey(name = "class_has_student_ibfk_2")),
+            inverseJoinColumns = @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "class_has_student_ibfk_1"))
+    )
+    @JsonIgnore
     private List<ClassEntity> classEntities = new ArrayList<>();
 
 }

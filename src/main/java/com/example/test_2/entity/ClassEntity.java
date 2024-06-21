@@ -25,12 +25,8 @@ public class ClassEntity {
     @Column(name = "grade_level")
     private String GradeLevel;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "class_has_student",
-            joinColumns = @JoinColumn(name = "class_id", foreignKey = @ForeignKey(name = "class_has_student_ibfk_2")),
-            inverseJoinColumns = @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "class_has_student_ibfk_1"))
-    )
+    @ManyToMany(mappedBy = "classEntities" ,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
     @JsonIgnore
-    private List<StudentEntity> studentEntities = new ArrayList<>();
+    private List<StudentEntity> studentEntities =new ArrayList<>();
 }
