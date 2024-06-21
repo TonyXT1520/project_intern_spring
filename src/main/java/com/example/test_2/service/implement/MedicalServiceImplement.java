@@ -43,23 +43,28 @@ public class MedicalServiceImplement implements MedicalService {
     @Transactional
     public MedicalResponse updateMedical(Long medicalId, MedicalRequest medicalRequest){
         MedicalEntity upload = medicalRepository.findById(medicalId).orElseThrow(()->new RuntimeException("medical not found"));
-        upload.setHealthStatus(medicalRequest.getHealthStatus());
-        upload.setVaccinationHistory(medicalRequest.getVaccinationHistory());
+
+        if(medicalRequest.getHealthStatus() != null) {
+            upload.setHealthStatus(medicalRequest.getHealthStatus());
+        }
+        if(medicalRequest.getVaccinationHistory() != null) {
+            upload.setVaccinationHistory(medicalRequest.getVaccinationHistory());
+        }
 
         MedicalEntity medicalEntity = medicalRepository.save(upload);
-        return mapToResponse(medicalEntity);
+        return MedicalResponse.mapToResponse(medicalEntity);
     }
 
     @Override
     public List<MedicalResponse> fetchMedicalList() {
         List<MedicalEntity> medicalEntities = medicalRepository.findAll();
-        return medicalEntities.stream().map(this::mapToResponse).collect(Collectors.toList());
+        return medicalEntities.stream().map(MedicalResponse::mapToResponse).collect(Collectors.toList());
     }
 
     @Override
     public MedicalResponse FindMedicalById(Long medicalId) {
         Optional<MedicalEntity> optionalMedical = medicalRepository.findById(medicalId);
-        return optionalMedical.map(this::mapToResponse).orElse(null);
+        return optionalMedical.map(MedicalResponse::mapToResponse).orElse(null);
     }
 
     @Override
@@ -67,10 +72,7 @@ public class MedicalServiceImplement implements MedicalService {
         medicalRepository.deleteById(medicalId);
     }
 
-    private MedicalResponse mapToResponse(MedicalEntity medicalEntity){
 
-        return new MedicalResponse(medicalEntity.getMedicalId(), medicalEntity.getHealthStatus(), medicalEntity.getVaccinationHistory());
-    }
 
 
 }

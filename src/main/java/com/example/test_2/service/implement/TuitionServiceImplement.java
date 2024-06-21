@@ -46,14 +46,14 @@ public class TuitionServiceImplement implements TuitionService
     @Transactional
     public List<TuitionResponse> getAllTuitions() {
         List<TuitionEntity> tuitionEntities = tuitionRepository.findAll();
-        return tuitionEntities.stream().map(this::mapToResponse).collect(Collectors.toList());
+        return tuitionEntities.stream().map(TuitionResponse::mapToResponse).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public TuitionResponse FindTuitionById(Long tuitionId) {
         Optional<TuitionEntity> optionalTuition = tuitionRepository.findById(tuitionId);
-        return optionalTuition.map(this::mapToResponse).orElse(null);
+        return optionalTuition.map(TuitionResponse::mapToResponse).orElse(null);
     }
 
     @Override
@@ -65,16 +65,18 @@ public class TuitionServiceImplement implements TuitionService
     @Transactional
     public TuitionResponse updateTuition(TuitionRequest tuitionRequest, Long tuitionId){
         TuitionEntity upload =tuitionRepository.findById(tuitionId).orElseThrow(()->new RuntimeException("tuition not found"));
-        upload.setPaymentStatus(tuitionRequest.getPaymentStatus());
+
+        if(tuitionRequest.getPaymentStatus() != null) {
+            upload.setPaymentStatus(tuitionRequest.getPaymentStatus());
+        }
 
         TuitionEntity tuitionEntity = tuitionRepository.save(upload);
 
-        return mapToResponse(tuitionEntity);
+        return TuitionResponse.mapToResponse(tuitionEntity);
     }
 
-    private TuitionResponse mapToResponse(TuitionEntity tuitionEntity){
 
-        return new TuitionResponse(tuitionEntity.getTuitionId(), tuitionEntity.getAmount(), tuitionEntity.getPaymentDate(),tuitionEntity.getPaymentStatus());
-    }
+
+
 
 }

@@ -44,25 +44,33 @@ public class AcademicResultServiceImplement implements AcademicResultService {
         AcademicResultEntity academicResultEntity = academicResultRepository.findById(resultId).orElseThrow(()->new RuntimeException("result not found"));
 
         AcademicResultEntity upload = new AcademicResultEntity();
-        upload.setSubject(academicResultRequest.getSubject());
-        upload.setScore(academicResultRequest.getScore());
-        upload.setSemester(academicResultRequest.getSemester());
-        upload.setAcademicYear(academicResultRequest.getAcademicResult());
+        if(academicResultRequest.getSubject() != null) {
+            upload.setSubject(academicResultRequest.getSubject());
+        }
+        if(academicResultRequest.getScore() != null) {
+            upload.setScore(academicResultRequest.getScore());
+        }
+        if (academicResultRequest.getSemester() != null) {
+            upload.setSemester(academicResultRequest.getSemester());
+        }
+        if(academicResultRequest.getAcademicResult() != null) {
+            upload.setAcademicYear(academicResultRequest.getAcademicResult());
+        }
 
         AcademicResultEntity academicResult = academicResultRepository.save(upload);
-        return mapToResponse(academicResultEntity);
+        return AcademicResultResponse.mapToResponse(academicResultEntity);
     }
 
     @Override
     public List<AcademicResultResponse> fetchAcademicResultList() {
         List<AcademicResultEntity> academicResultEntities = academicResultRepository.findAll();
-        return academicResultEntities.stream().map(this::mapToResponse).collect(Collectors.toList());
+        return academicResultEntities.stream().map(AcademicResultResponse::mapToResponse).collect(Collectors.toList());
     }
 
     @Override
     public AcademicResultResponse FindAcademicResultById(Long resultId) {
         Optional<AcademicResultEntity> optionalAcademicResult = academicResultRepository.findById(resultId);
-        return optionalAcademicResult.map(this::mapToResponse).orElse(null);
+        return optionalAcademicResult.map(AcademicResultResponse::mapToResponse).orElse(null);
     }
 
     @Override
@@ -70,14 +78,5 @@ public class AcademicResultServiceImplement implements AcademicResultService {
         academicResultRepository.deleteById(resultId);
     }
 
-    private AcademicResultResponse mapToResponse(AcademicResultEntity academicResultEntity){
-        AcademicResultResponse academicResultResponse = new AcademicResultResponse();
-        academicResultResponse.setResultId(academicResultEntity.getResultId());
-        academicResultResponse.setSubject(academicResultEntity.getSubject());
-        academicResultResponse.setScore(academicResultEntity.getScore());
-        academicResultResponse.setSemester(academicResultEntity.getSemester());
-        academicResultResponse.setAcademicResul(academicResultEntity.getAcademicYear());
 
-        return academicResultResponse;
-    }
 }

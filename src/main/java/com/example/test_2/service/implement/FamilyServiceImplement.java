@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class FamilyServiceImplement implements FamilyService {
+    private FamilyResponse familyResponse;;
 
     @Autowired
     private FamilyRepository familyRepository;
@@ -35,17 +36,21 @@ public class FamilyServiceImplement implements FamilyService {
         insertFamily.setMotherPhone(familyRequest.getMotherPhone());
 
         FamilyEntity addFamily = familyRepository.save(insertFamily);
-        return mapToResponse(addFamily);
+        return FamilyResponse.mapToResponse(addFamily);
     }
 
     @Override
     public FamilyResponse updateFamily(Long familyId, FamilyRequest familyRequest) {
         FamilyEntity upload = familyRepository.findById(familyId).orElseThrow(()->new RuntimeException("family not found"));
-        upload.setFatherPhone(familyRequest.getFatherPhone());
-        upload.setMotherPhone(familyRequest.getMotherPhone());
+
+        if(familyRequest.getFatherPhone() != null) {
+            upload.setFatherPhone(familyRequest.getFatherPhone());
+        }if(familyRequest.getMotherPhone() != null) {
+            upload.setMotherPhone(familyRequest.getMotherPhone());
+        }
 
         FamilyEntity familyEntity = familyRepository.save(upload);
-        return mapToResponse(familyEntity);
+        return FamilyResponse.mapToResponse(familyEntity);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class FamilyServiceImplement implements FamilyService {
     @Override
     public FamilyResponse findFamilyById(Long famiyId) {
         Optional<FamilyEntity> optionalFamily = familyRepository.findById(famiyId);
-        return optionalFamily.map(this::mapToResponse).orElse(null);
+        return optionalFamily.map(FamilyResponse::mapToResponse).orElse(null);
     }
 
     @Override
@@ -66,14 +71,5 @@ public class FamilyServiceImplement implements FamilyService {
         familyRepository.deleteById(familyId);
     }
 
-    private FamilyResponse mapToResponse(FamilyEntity familyEntity){
-        FamilyResponse familyResponse = new FamilyResponse();
-        familyResponse.setFamilyId(familyEntity.getFamilyId());
-        familyResponse.setFatherName(familyEntity.getFatherName());
-        familyResponse.setFatherPhone(familyResponse.getFatherPhone());
-        familyResponse.setMotherName(familyEntity.getMotherName());
-        familyResponse.setMotherPhone(familyEntity.getMotherPhone());
 
-        return familyResponse;
-    }
 }

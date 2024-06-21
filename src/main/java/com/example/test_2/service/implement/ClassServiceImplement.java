@@ -41,23 +41,27 @@ public class ClassServiceImplement implements ClassService {
     @Override
     public ClassResponse updateClass(Long classId, ClassRequest classRequest) {
         ClassEntity upload = classRepository.findById(classId).orElseThrow(()->new RuntimeException("class not found"));
-        upload.setClassName(classRequest.getClassName());
-        upload.setGradeLevel(classRequest.getGradeLevel());
 
+        if(classRequest.getClassName() != null) {
+            upload.setClassName(classRequest.getClassName());
+        }
+        if (classRequest.getGradeLevel() != null) {
+            upload.setGradeLevel(classRequest.getGradeLevel());
+        }
         ClassEntity classEntity = classRepository.save(upload);
-        return mapToResponse(classEntity);
+        return ClassResponse.mapToResponse(classEntity);
     }
 
     @Override
     public List<ClassResponse> fetchClassList() {
         List<ClassEntity> classEntities = classRepository.findAll();
-        return classEntities.stream().map(this::mapToResponse).collect(Collectors.toList());
+        return classEntities.stream().map(ClassResponse::mapToResponse).collect(Collectors.toList());
     }
 
     @Override
     public ClassResponse FindClassById(Long classId) {
         Optional<ClassEntity> optionalClass = classRepository.findById(classId);
-        return optionalClass.map(this::mapToResponse).orElse(null);
+        return optionalClass.map(ClassResponse::mapToResponse).orElse(null);
     }
 
     @Override
@@ -65,12 +69,5 @@ public class ClassServiceImplement implements ClassService {
         classRepository.deleteById(classId);
     }
 
-    private ClassResponse mapToResponse(ClassEntity classEntity){
-        ClassResponse classResponse = new ClassResponse();
-        classResponse.setClassId(classEntity.getClassId());
-        classResponse.setClassName(classEntity.getClassName());
-        classResponse.setGradeLevel(classEntity.getGradeLevel());
 
-        return classResponse;
-    }
 }

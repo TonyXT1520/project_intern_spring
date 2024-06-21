@@ -1,5 +1,6 @@
 package com.example.test_2.service.implement;
 
+import com.example.test_2.config.Validate;
 import com.example.test_2.entity.FamilyEntity;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.entity.TuitionEntity;
@@ -32,6 +33,8 @@ public class StudentServiceImplement implements StudentService {
     public StudentResponse addStudent(Long familyId, StudentAddRequest studentAddRequest) {
         FamilyEntity familyEntity = familyRepository.findById(familyId).orElseThrow(()->new RuntimeException("family not found"));
 
+        Validate.studentValidateDetails(studentAddRequest.getPhone(), studentAddRequest.getEmail(), studentAddRequest.getGender());
+
         StudentEntity insertEntity = new StudentEntity();
         insertEntity.setStudentId(studentAddRequest.getStudentId());
         insertEntity.setFullName(studentAddRequest.getFullName());
@@ -44,7 +47,7 @@ public class StudentServiceImplement implements StudentService {
 
         StudentEntity studentEntity1 = studentRepository.save(insertEntity);
 
-        return mapToResponse(studentEntity1);
+        return StudentResponse.mapToResponse(studentEntity1);
     }
 
 
@@ -58,7 +61,7 @@ public class StudentServiceImplement implements StudentService {
     @Override
     public StudentResponse findStudentById(Long studentId) {
         Optional<StudentEntity> optionalStudent = studentRepository.findById(studentId);
-        return optionalStudent.map(this::mapToResponse).orElse(null);
+        return optionalStudent.map(StudentResponse::mapToResponse).orElse(null);
     }
 
     @Override
@@ -66,12 +69,20 @@ public class StudentServiceImplement implements StudentService {
     public StudentResponse updateStudent(Long studentId, StudentRequest studentRequest) {
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
 
-        studentEntity.setAddress(studentRequest.getAddress());
-        studentEntity.setPhone(studentRequest.getPhone());
-        studentEntity.setEmail(studentRequest.getEmail());
+        Validate.studentValidateDetails(studentRequest.getAddress(), studentRequest.getEmail(), studentRequest.getPhone());
+
+        if(studentRequest.getAddress()  != null) {
+            studentEntity.setAddress(studentRequest.getAddress());
+        }
+        if(studentRequest.getPhone() != null) {
+            studentEntity.setPhone(studentRequest.getPhone());
+        }
+        if ((studentRequest.getEmail()) != null) {
+            studentEntity.setEmail(studentRequest.getEmail());
+        }
 
         StudentEntity uploadstudent = studentRepository.save(studentEntity);
-        return mapToResponse(uploadstudent);
+        return StudentResponse.mapToResponse(uploadstudent);
     }
 
     @Override
@@ -79,16 +90,4 @@ public class StudentServiceImplement implements StudentService {
         studentRepository.deleteById(studentId);
     }
 
-    private StudentResponse mapToResponse(StudentEntity studentEntity){
-        StudentResponse studentResponse = new StudentResponse();
-        studentResponse.setStudentId(studentEntity.getStudentId());
-        studentResponse.setFullName(studentEntity.getFullName());
-        studentResponse.setDateOfBirth(studentResponse.getDateOfBirth());
-        studentResponse.setGender(studentResponse.getGender());
-        studentResponse.setAddress(studentEntity.getAddress());
-        studentResponse.setPhone(studentEntity.getPhone());
-        studentResponse.setEmail(studentEntity.getEmail());
-
-        return studentResponse;
-    }
 }
