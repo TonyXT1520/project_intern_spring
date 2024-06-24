@@ -39,7 +39,7 @@ public class StudentServiceImplement implements StudentService {
         StudentEntity insertEntity = new StudentEntity();
         insertEntity.setStudentId(studentAddRequest.getStudentId());
         insertEntity.setFullName(studentAddRequest.getFullName());
-        insertEntity.setDayofBirth(studentAddRequest.getDateOfBirth());
+        insertEntity.setDayOfBirth(studentAddRequest.getDateOfBirth());
         insertEntity.setGender(studentAddRequest.getGender());
         insertEntity.setAddress(studentAddRequest.getAddress());
         insertEntity.setPhone(studentAddRequest.getPhone());

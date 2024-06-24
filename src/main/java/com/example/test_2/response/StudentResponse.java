@@ -30,7 +30,7 @@ public class StudentResponse {
         StudentResponse studentResponse = new StudentResponse();
         studentResponse.setStudentId(studentEntity.getStudentId());
         studentResponse.setFullName(studentEntity.getFullName());
-        studentResponse.setDateOfBirth(studentEntity.getDayofBirth());
+        studentResponse.setDateOfBirth(studentEntity.getDayOfBirth());
         studentResponse.setGender(studentEntity.getGender());
         studentResponse.setAddress(studentEntity.getAddress());
         studentResponse.setPhone(studentEntity.getPhone());

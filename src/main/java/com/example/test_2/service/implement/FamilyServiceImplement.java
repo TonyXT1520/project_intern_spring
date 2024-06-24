@@ -22,7 +22,7 @@ public class FamilyServiceImplement implements FamilyService {
     @Transactional
     public FamilyResponse addFamily(FamilyRequest familyRequest) {
         FamilyEntity insertFamily = new FamilyEntity();
-        insertFamily.setFamilyId(familyRequest.getFamiliId());
+        insertFamily.setFamilyId(familyRequest.getFamilyId());
         insertFamily.setFatherName(familyRequest.getFatherName());
         insertFamily.setFatherPhone(familyRequest.getFatherPhone());
         insertFamily.setMotherName(familyRequest.getMotherName());
