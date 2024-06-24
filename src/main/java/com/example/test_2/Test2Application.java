@@ -1,9 +1,13 @@
 package com.example.test_2;
 
+import com.example.test_2.config.SecurityConfig;
+import com.example.test_2.config.SwaggerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
+@Import({SwaggerConfig.class, SecurityConfig.class})
 public class Test2Application {
 
 	public static void main(String[] args) {

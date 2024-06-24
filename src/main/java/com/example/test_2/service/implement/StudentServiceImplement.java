@@ -4,23 +4,19 @@ import com.example.test_2.config.Validate;
 import com.example.test_2.entity.ClassEntity;
 import com.example.test_2.entity.FamilyEntity;
 import com.example.test_2.entity.StudentEntity;
-import com.example.test_2.entity.TuitionEntity;
 import com.example.test_2.repository.ClassRepository;
 import com.example.test_2.repository.FamilyRepository;
 import com.example.test_2.repository.StudentRepository;
 import com.example.test_2.request.StudentAddRequest;
 import com.example.test_2.request.StudentRequest;
 import com.example.test_2.response.StudentResponse;
-import com.example.test_2.response.TuitionResponse;
 import com.example.test_2.service.StudentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImplement implements StudentService {
@@ -58,9 +54,8 @@ public class StudentServiceImplement implements StudentService {
 
     @Override
     public List<StudentEntity> getAllStudents() {
-        //List<StudentEntity> studentEntities = studentRepository.findAll();
-        //studentEntities.stream().map(this::mapToResponse).collect(Collectors.toList())
-        return (List<StudentEntity>) studentRepository.findAll();
+
+        return studentRepository.findAll();
     }
 
     @Override
@@ -86,8 +81,8 @@ public class StudentServiceImplement implements StudentService {
             studentEntity.setEmail(studentRequest.getEmail());
         }
 
-        StudentEntity uploadstudent = studentRepository.save(studentEntity);
-        return StudentResponse.mapToResponse(uploadstudent);
+        StudentEntity uploadStudent = studentRepository.save(studentEntity);
+        return StudentResponse.mapToResponse(uploadStudent);
     }
 
     @Override
@@ -96,7 +91,7 @@ public class StudentServiceImplement implements StudentService {
     }
 
     @Override
-    public StudentEntity addClasstoStudent(Long studentId, Long classId) {
+    public StudentEntity addClassToStudent(Long studentId, Long classId) {
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
         ClassEntity classEntity = classRepository.findById(classId).orElseThrow(()->new RuntimeException("class not found"));
 

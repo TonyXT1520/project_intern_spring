@@ -1,13 +1,11 @@
 package com.example.test_2.service.implement;
 
 import com.example.test_2.entity.ClassEntity;
-import com.example.test_2.entity.FamilyEntity;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.repository.ClassRepository;
 import com.example.test_2.repository.StudentRepository;
 import com.example.test_2.request.ClassRequest;
 import com.example.test_2.response.ClassResponse;
-import com.example.test_2.response.FamilyResponse;
 import com.example.test_2.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,10 +30,9 @@ public class ClassServiceImplement implements ClassService {
         insertClass.setClassId(classEntity.getClassId());
         insertClass.setClassName(classEntity.getClassName());
         insertClass.setGradeLevel(classEntity.getGradeLevel());
-        //insertClass.setStudentEntities(studentEntity);
+        insertClass.setStudentEntities(List.of(studentEntity));
 
-        ClassEntity addClass = classRepository.save(insertClass);
-        return null;
+        return classRepository.save(insertClass);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.test_2.service.implement;
 
-import com.example.test_2.entity.ClassEntity;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.entity.TuitionEntity;
 import com.example.test_2.repository.StudentRepository;
@@ -37,14 +36,12 @@ public class TuitionServiceImplement implements TuitionService
         insertTuition.setPaymentStatus(tuitionEntity.getPaymentStatus());
         insertTuition.setStudentEntity(studentEntity);
 
-        TuitionEntity addTuition = tuitionRepository.save(insertTuition);
-
-        return null;
+        return tuitionRepository.save(insertTuition);
     }
 
     @Override
     @Transactional
-    public List<TuitionResponse> getAllTuitions() {
+    public List<TuitionResponse> getAllTuition() {
         List<TuitionEntity> tuitionEntities = tuitionRepository.findAll();
         return tuitionEntities.stream().map(TuitionResponse::mapToResponse).collect(Collectors.toList());
     }

@@ -26,7 +26,7 @@ public class TuitionEntity {
     private String paymentStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "tuition_ibfk_1"))
+    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "tuition_1"))
     @JsonIgnore
     private StudentEntity studentEntity;
 }

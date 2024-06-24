@@ -30,7 +30,7 @@ public class AcademicResultEntity {
     private String academicYear;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", foreignKey = @ForeignKey (name = "academic_result_ibfk_1"))
+    @JoinColumn(name = "student_id", foreignKey = @ForeignKey (name = "academic_result_1"))
     @JsonIgnore
     private StudentEntity studentEntity;
 }

@@ -1,11 +1,8 @@
 package com.example.test_2.controller;
 
-import com.example.test_2.entity.AcademicResultEntity;
 import com.example.test_2.entity.ClassEntity;
 import com.example.test_2.request.ClassRequest;
-import com.example.test_2.request.TuitionRequest;
 import com.example.test_2.response.ClassResponse;
-import com.example.test_2.response.TuitionResponse;
 import com.example.test_2.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

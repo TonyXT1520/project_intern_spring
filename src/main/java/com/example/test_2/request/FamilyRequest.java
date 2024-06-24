@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FamilyRequest {
-    private Long familiId;
+    private Long familyId;
     private String fatherName;
     private String fatherPhone;
     private String motherName;

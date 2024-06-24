@@ -1,14 +1,9 @@
 package com.example.test_2.controller;
 
 import com.example.test_2.entity.FamilyEntity;
-import com.example.test_2.repository.FamilyRepository;
 import com.example.test_2.request.FamilyRequest;
-import com.example.test_2.request.TuitionRequest;
 import com.example.test_2.response.FamilyResponse;
-import com.example.test_2.response.TuitionResponse;
 import com.example.test_2.service.FamilyService;
-import com.example.test_2.service.StudentService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

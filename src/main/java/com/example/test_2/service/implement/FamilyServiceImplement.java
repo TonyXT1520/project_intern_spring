@@ -1,26 +1,19 @@
 package com.example.test_2.service.implement;
 
 import com.example.test_2.entity.FamilyEntity;
-import com.example.test_2.entity.StudentEntity;
-import com.example.test_2.entity.TuitionEntity;
 import com.example.test_2.repository.FamilyRepository;
-import com.example.test_2.repository.StudentRepository;
 import com.example.test_2.request.FamilyRequest;
 import com.example.test_2.response.FamilyResponse;
-import com.example.test_2.response.TuitionResponse;
 import com.example.test_2.service.FamilyService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FamilyServiceImplement implements FamilyService {
-    private FamilyResponse familyResponse;;
 
     @Autowired
     private FamilyRepository familyRepository;
@@ -55,14 +48,12 @@ public class FamilyServiceImplement implements FamilyService {
 
     @Override
     public List<FamilyEntity> fetchFamilyList() {
-        //List<FamilyEntity> familyEntities = familyRepository.findAll();
-        //familyEntities.stream().map(this::mapToResponse).collect(Collectors.toList());
         return familyRepository.findAll();
     }
 
     @Override
-    public FamilyResponse findFamilyById(Long famiyId) {
-        Optional<FamilyEntity> optionalFamily = familyRepository.findById(famiyId);
+    public FamilyResponse findFamilyById(Long familyId) {
+        Optional<FamilyEntity> optionalFamily = familyRepository.findById(familyId);
         return optionalFamily.map(FamilyResponse::mapToResponse).orElse(null);
     }
 

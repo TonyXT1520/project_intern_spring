@@ -1,7 +1,7 @@
 package com.example.test_2.service.implement;
 
 import com.example.test_2.entity.AcademicResultEntity;
-import com.example.test_2.entity.FamilyEntity;
+
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.repository.AcademicResultRepository;
 import com.example.test_2.repository.StudentRepository;
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AcademicResultServiceImplement implements AcademicResultService {
+
     @Autowired
     private AcademicResultRepository academicResultRepository;
 
@@ -35,30 +36,29 @@ public class AcademicResultServiceImplement implements AcademicResultService {
         insertAcademicResult.setAcademicYear(academicResultEntity.getAcademicYear());
         insertAcademicResult.setStudentEntity(studentEntity);
 
-        AcademicResultEntity addResult = academicResultRepository.save(insertAcademicResult);
-        return null;
+        return academicResultRepository.save(insertAcademicResult);
     }
 
     @Override
     public AcademicResultResponse updateAcademicResult(Long resultId, AcademicResultRequest academicResultRequest) {
         AcademicResultEntity academicResultEntity = academicResultRepository.findById(resultId).orElseThrow(()->new RuntimeException("result not found"));
 
-        AcademicResultEntity upload = new AcademicResultEntity();
+
         if(academicResultRequest.getSubject() != null) {
-            upload.setSubject(academicResultRequest.getSubject());
+            academicResultEntity.setSubject(academicResultRequest.getSubject());
         }
         if(academicResultRequest.getScore() != null) {
-            upload.setScore(academicResultRequest.getScore());
+            academicResultEntity.setScore(academicResultRequest.getScore());
         }
         if (academicResultRequest.getSemester() != null) {
-            upload.setSemester(academicResultRequest.getSemester());
+            academicResultEntity.setSemester(academicResultRequest.getSemester());
         }
         if(academicResultRequest.getAcademicResult() != null) {
-            upload.setAcademicYear(academicResultRequest.getAcademicResult());
+            academicResultEntity.setAcademicYear(academicResultRequest.getAcademicResult());
         }
 
-        AcademicResultEntity academicResult = academicResultRepository.save(upload);
-        return AcademicResultResponse.mapToResponse(academicResultEntity);
+        AcademicResultEntity academicResult = academicResultRepository.save(academicResultEntity);
+        return AcademicResultResponse.mapToResponse(academicResult);
     }
 
     @Override

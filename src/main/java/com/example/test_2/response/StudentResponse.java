@@ -2,7 +2,6 @@ package com.example.test_2.response;
 
 import com.example.test_2.entity.ClassEntity;
 import com.example.test_2.entity.StudentEntity;
-import com.example.test_2.entity.TuitionEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

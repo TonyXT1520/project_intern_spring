@@ -1,7 +1,6 @@
 package com.example.test_2.service;
 
 import com.example.test_2.entity.FamilyEntity;
-import com.example.test_2.repository.FamilyRepository;
 import com.example.test_2.request.FamilyRequest;
 import com.example.test_2.response.FamilyResponse;
 
@@ -14,7 +13,7 @@ public interface FamilyService{
 
     List<FamilyEntity> fetchFamilyList();
 
-    FamilyResponse findFamilyById(Long famiyId);
+    FamilyResponse findFamilyById(Long familyId);
 
     void deleteFamilyById(Long familyId);
 }

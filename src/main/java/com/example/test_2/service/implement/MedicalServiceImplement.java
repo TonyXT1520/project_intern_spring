@@ -1,12 +1,10 @@
 package com.example.test_2.service.implement;
 
-import com.example.test_2.entity.FamilyEntity;
 import com.example.test_2.entity.MedicalEntity;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.repository.MedicalRepository;
 import com.example.test_2.repository.StudentRepository;
 import com.example.test_2.request.MedicalRequest;
-import com.example.test_2.response.FamilyResponse;
 import com.example.test_2.response.MedicalResponse;
 import com.example.test_2.service.MedicalService;
 import jakarta.transaction.Transactional;
@@ -36,8 +34,7 @@ public class MedicalServiceImplement implements MedicalService {
         insertMedical.setVaccinationHistory(medicalEntity.getVaccinationHistory());
         insertMedical.setStudentEntity(studentEntity);
 
-        MedicalEntity addMedical = medicalRepository.save(insertMedical);
-        return null;
+        return medicalRepository.save(insertMedical);
     }
     @Override
     @Transactional

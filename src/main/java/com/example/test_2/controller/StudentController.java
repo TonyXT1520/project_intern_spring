@@ -52,7 +52,7 @@ public class StudentController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{studentId}/addClass/{classId}")
     public ResponseEntity<StudentResponse> addClassToStudent(@PathVariable("studentId") Long studentId, @PathVariable("classId") Long classId){
-        StudentEntity studentEntity = studentService.addClasstoStudent(studentId, classId);
+        StudentEntity studentEntity = studentService.addClassToStudent(studentId, classId);
         return ResponseEntity.ok(StudentResponse.mapToResponse(studentEntity));
     }
 }

@@ -25,7 +25,7 @@ public class StudentEntity {
     private String fullName;
 
     @Column(name = "date_of_birth")
-    private String dayofBirth;
+    private String dayOfBirth;
 
     @Column(name = "gender")
     private String gender;
@@ -49,15 +49,15 @@ public class StudentEntity {
     private List<AcademicResultEntity> academicResultEntities;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "family_id", foreignKey = @ForeignKey(name = "student_ibfk_1"))
+    @JoinColumn(name = "family_id", foreignKey = @ForeignKey(name = "student_1"))
     @JsonIgnore
     private FamilyEntity familyEntity;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "class_has_student",
-            joinColumns = @JoinColumn(name = "class_id", foreignKey = @ForeignKey(name = "class_has_student_ibfk_2")),
-            inverseJoinColumns = @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "class_has_student_ibfk_1"))
+            joinColumns = @JoinColumn(name = "class_id", foreignKey = @ForeignKey(name = "class_has_student_2")),
+            inverseJoinColumns = @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "class_has_student_1"))
     )
     @JsonIgnore
     private List<ClassEntity> classEntities = new ArrayList<>();
