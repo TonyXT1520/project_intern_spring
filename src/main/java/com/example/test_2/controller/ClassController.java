@@ -15,7 +15,7 @@ public class ClassController {
     @Autowired
     private ClassService classService;
 
-    @GetMapping("/allClass")
+    @GetMapping
     public List<ClassResponse> fetchClassList() {
         return classService.fetchClassList();
     }
@@ -25,17 +25,17 @@ public class ClassController {
         return classService.FindClassById(classId);
     }
 
-    @PostMapping("/addClass/{id}")
+    @PostMapping("/{id}")
     public ClassEntity addClass(@PathVariable("id") Long studentId,@RequestBody ClassEntity classEntity){
         return classService.addClass(studentId, classEntity);
     }
 
-    @PutMapping("/updateClass/{id}")
+    @PutMapping("/{id}")
     public ClassResponse updateClass(@PathVariable("id") Long classId, @RequestBody ClassRequest classRequest){
         return classService.updateClass(classId, classRequest);
     }
 
-    @DeleteMapping("/deleteClass/{id}")
+    @DeleteMapping("/{id}")
     public String deleteClass(@PathVariable("id") Long classId){
         classService.deleteClassById(classId);
         return "Deleted Successfully";

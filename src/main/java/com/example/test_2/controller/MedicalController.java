@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/medical")
+@RequestMapping("/medicals")
 public class MedicalController {
     @Autowired
     private MedicalService medicalService;
 
-    @GetMapping("/allMedical")
+    @GetMapping
     public List<MedicalResponse> fetchMedicalList() {
         return medicalService.fetchMedicalList();
     }
@@ -25,17 +25,17 @@ public class MedicalController {
         return medicalService.FindMedicalById(medicalId);
     }
 
-    @PostMapping("/addMedical/{id}")
+    @PostMapping("/{id}")
     public MedicalEntity addMedical(@PathVariable("id") Long studentId,@RequestBody MedicalEntity medicalEntity){
         return medicalService.addMedical(studentId, medicalEntity);
     }
 
-    @PutMapping("/updateMedical/{id}")
+    @PutMapping("/{id}")
     public MedicalResponse updateMedical(@PathVariable("id") Long medicalId,@RequestBody MedicalRequest medicalRequest){
         return medicalService.updateMedical(medicalId, medicalRequest);
     }
 
-    @DeleteMapping("/deleteMedical/{id}")
+    @DeleteMapping("/{id}")
     public String deleteMedical(@PathVariable("id") Long medicalId){
         medicalService.deleteMedicalById(medicalId);
         return "Deleted Successfully";

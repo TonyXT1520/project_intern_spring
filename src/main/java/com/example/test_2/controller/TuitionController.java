@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tuition")
+@RequestMapping("/tuitions")
 public class TuitionController {
     @Autowired
     private TuitionService tuitionService;
 
-    @GetMapping("/allTuition")
+    @GetMapping
     public List<TuitionResponse> fetchTuitionList() {
         return tuitionService.getAllTuition();
     }
@@ -26,17 +26,17 @@ public class TuitionController {
         return tuitionService.FindTuitionById(tuitionId);
     }
 
-    @PostMapping("/addTuition/{id}")
+    @PostMapping("/{id}")
     public TuitionEntity addTuition(@PathVariable ("id") Long studentId, @RequestBody TuitionEntity tuitionEntity){
         return tuitionService.addTuition(studentId, tuitionEntity);
     }
 
-    @PutMapping("/updateTuition/{id}")
+    @PutMapping("/{id}")
     public TuitionResponse updateTuition(@PathVariable("id")Long tuitionId, @RequestBody TuitionRequest tuitionRequest){
         return tuitionService.updateTuition(tuitionRequest, tuitionId);
     }
 
-    @DeleteMapping("/deleteTuition/{id}")
+    @DeleteMapping("/{id}")
     public String deleteTuition(@PathVariable("id") Long tuitionId){
         tuitionService.deleteTuitionById(tuitionId);
         return "Deleted Successfully";

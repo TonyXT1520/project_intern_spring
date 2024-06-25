@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/family")
+@RequestMapping("/familys")
 public class FamilyController {
     @Autowired
     private FamilyService familyService;
 
-    @GetMapping("/allFamily")
+    @GetMapping
     public List<FamilyEntity> fetchFamilyList() {
         return familyService.fetchFamilyList();
     }
@@ -25,17 +25,17 @@ public class FamilyController {
         return familyService.findFamilyById(familyId);
     }
 
-    @PostMapping("/addFamily")
+    @PostMapping
     public FamilyResponse addFamilyById(@RequestBody FamilyRequest familyRequest){
         return familyService.addFamily(familyRequest);
     }
 
-    @PutMapping("/updateFamily/{id}")
+    @PutMapping("/{id}")
     public FamilyResponse updateFamily(@PathVariable("id") Long familyId, @RequestBody FamilyRequest familyRequest){
         return familyService.updateFamily(familyId, familyRequest);
     }
 
-    @DeleteMapping("/deleteTuition/{id}")
+    @DeleteMapping("/{id}")
     public String deleteFamily(@PathVariable("id") Long familyId){
         familyService.deleteFamilyById(familyId);
         return "Deleted Successfully";

@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/AcademicResult")
+@RequestMapping("/result")
 public class AcademicResultController {
     @Autowired
     private AcademicResultService academicResultService;
 
-    @GetMapping("/allAcademicResults")
+    @GetMapping
     public List<AcademicResultResponse> fetchAcademicList() {
         return academicResultService.fetchAcademicResultList();
     }
@@ -25,17 +25,17 @@ public class AcademicResultController {
         return academicResultService.FindAcademicResultById(resultId);
     }
 
-    @PostMapping("/addAcademicResults/{id}")
+    @PostMapping("/{id}")
     public AcademicResultEntity addAcademicResult(@PathVariable("id") Long studentId,@RequestBody AcademicResultEntity academicResultEntity){
         return academicResultService.addAcademicResult(studentId, academicResultEntity);
     }
 
-    @PutMapping("/updateAcademicResult/{id}")
+    @PutMapping("/{id}")
     public AcademicResultResponse updateAcademicResult(@PathVariable("id") Long resultId, @RequestBody AcademicResultRequest academicResultRequest){
         return academicResultService.updateAcademicResult(resultId, academicResultRequest);
     }
 
-    @DeleteMapping("/deleteAcademicResult/{id}")
+    @DeleteMapping("/{id}")
     public String deleteAcademicResult(@PathVariable("id") Long resultId){
         academicResultService.deleteAcademicResultById(resultId);
         return "Deleted Successfully";
