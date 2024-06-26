@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,12 +30,13 @@ public class AcademicResultServiceImplement implements AcademicResultService {
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
         AcademicResultEntity insertAcademicResult = new AcademicResultEntity();
 
-        insertAcademicResult.setResultId(academicResultEntity.getResultId());
-        insertAcademicResult.setSubject(academicResultEntity.getSubject());
-        insertAcademicResult.setScore(academicResultEntity.getScore());
-        insertAcademicResult.setSemester(academicResultEntity.getSemester());
-        insertAcademicResult.setAcademicYear(academicResultEntity.getAcademicYear());
-        insertAcademicResult.setStudentEntity(studentEntity);
+
+        insertAcademicResult.setResultId(Objects.requireNonNull(academicResultEntity.getResultId()));
+        insertAcademicResult.setSubject(Objects.requireNonNull(academicResultEntity.getSubject()));
+        insertAcademicResult.setScore(Objects.requireNonNull(academicResultEntity.getScore()));
+        insertAcademicResult.setSemester(Objects.requireNonNull(academicResultEntity.getSemester()));
+        insertAcademicResult.setAcademicYear(Objects.requireNonNull(academicResultEntity.getAcademicYear()));
+        insertAcademicResult.setStudentEntity(Objects.requireNonNull(studentEntity));
 
         return academicResultRepository.save(insertAcademicResult);
     }

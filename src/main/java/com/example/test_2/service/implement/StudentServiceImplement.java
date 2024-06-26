@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,14 +38,14 @@ public class StudentServiceImplement implements StudentService {
         Validate.studentValidateDetails(studentAddRequest.getPhone(), studentAddRequest.getEmail(), studentAddRequest.getGender());
 
         StudentEntity insertEntity = new StudentEntity();
-        insertEntity.setStudentId(studentAddRequest.getStudentId());
-        insertEntity.setFullName(studentAddRequest.getFullName());
-        insertEntity.setDayOfBirth(studentAddRequest.getDateOfBirth());
-        insertEntity.setGender(studentAddRequest.getGender());
-        insertEntity.setAddress(studentAddRequest.getAddress());
-        insertEntity.setPhone(studentAddRequest.getPhone());
-        insertEntity.setEmail(studentAddRequest.getEmail());
-        insertEntity.setFamilyEntity(familyEntity);
+        insertEntity.setStudentId(Objects.requireNonNull(studentAddRequest.getStudentId()));
+        insertEntity.setFullName(Objects.requireNonNull(studentAddRequest.getFullName()));
+        insertEntity.setDayOfBirth(Objects.requireNonNull(studentAddRequest.getDateOfBirth()));
+        insertEntity.setGender(Objects.requireNonNull(studentAddRequest.getGender()));
+        insertEntity.setAddress(Objects.requireNonNull(studentAddRequest.getAddress()));
+        insertEntity.setPhone(Objects.requireNonNull(studentAddRequest.getPhone()));
+        insertEntity.setEmail(Objects.requireNonNull(studentAddRequest.getEmail()));
+        insertEntity.setFamilyEntity(Objects.requireNonNull(familyEntity));
 
         StudentEntity studentEntity1 = studentRepository.save(insertEntity);
 

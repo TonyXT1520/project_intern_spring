@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,10 +28,10 @@ public class ClassServiceImplement implements ClassService {
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
 
         ClassEntity insertClass = new ClassEntity();
-        insertClass.setClassId(classEntity.getClassId());
-        insertClass.setClassName(classEntity.getClassName());
-        insertClass.setGradeLevel(classEntity.getGradeLevel());
-        insertClass.setStudentEntities(List.of(studentEntity));
+        insertClass.setClassId(Objects.requireNonNull(classEntity.getClassId()));
+        insertClass.setClassName(Objects.requireNonNull(classEntity.getClassName()));
+        insertClass.setGradeLevel(Objects.requireNonNull(classEntity.getGradeLevel()));
+        insertClass.setStudentEntities(Objects.requireNonNull(List.of(studentEntity)));
 
         return classRepository.save(insertClass);
     }

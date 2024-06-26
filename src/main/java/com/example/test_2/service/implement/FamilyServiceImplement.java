@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -22,11 +23,11 @@ public class FamilyServiceImplement implements FamilyService {
     @Transactional
     public FamilyResponse addFamily(FamilyRequest familyRequest) {
         FamilyEntity insertFamily = new FamilyEntity();
-        insertFamily.setFamilyId(familyRequest.getFamilyId());
-        insertFamily.setFatherName(familyRequest.getFatherName());
-        insertFamily.setFatherPhone(familyRequest.getFatherPhone());
-        insertFamily.setMotherName(familyRequest.getMotherName());
-        insertFamily.setMotherPhone(familyRequest.getMotherPhone());
+        insertFamily.setFamilyId(Objects.requireNonNull(familyRequest.getFamilyId()));
+        insertFamily.setFatherName(Objects.requireNonNull(familyRequest.getFatherName()));
+        insertFamily.setFatherPhone(Objects.requireNonNull(familyRequest.getFatherPhone()));
+        insertFamily.setMotherName(Objects.requireNonNull(familyRequest.getMotherName()));
+        insertFamily.setMotherPhone(Objects.requireNonNull(familyRequest.getMotherPhone()));
 
         FamilyEntity addFamily = familyRepository.save(insertFamily);
         return FamilyResponse.mapToResponse(addFamily);

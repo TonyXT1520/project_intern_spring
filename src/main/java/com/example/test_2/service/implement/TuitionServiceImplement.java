@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,11 +31,11 @@ public class TuitionServiceImplement implements TuitionService
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
 
         TuitionEntity insertTuition = new TuitionEntity();
-        insertTuition.setTuitionId(tuitionEntity.getTuitionId());
-        insertTuition.setAmount(tuitionEntity.getAmount());
-        insertTuition.setPaymentDate(tuitionEntity.getPaymentDate());
-        insertTuition.setPaymentStatus(tuitionEntity.getPaymentStatus());
-        insertTuition.setStudentEntity(studentEntity);
+        insertTuition.setTuitionId(Objects.requireNonNull(tuitionEntity.getTuitionId()));
+        insertTuition.setAmount(Objects.requireNonNull(tuitionEntity.getAmount()));
+        insertTuition.setPaymentDate(Objects.requireNonNull(tuitionEntity.getPaymentDate()));
+        insertTuition.setPaymentStatus(Objects.requireNonNull(tuitionEntity.getPaymentStatus()));
+        insertTuition.setStudentEntity(Objects.requireNonNull(studentEntity));
 
         return tuitionRepository.save(insertTuition);
     }

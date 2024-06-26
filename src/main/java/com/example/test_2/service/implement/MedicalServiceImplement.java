@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,10 +30,10 @@ public class MedicalServiceImplement implements MedicalService {
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
 
         MedicalEntity insertMedical = new MedicalEntity();
-        insertMedical.setMedicalId(medicalEntity.getMedicalId());
-        insertMedical.setHealthStatus(medicalEntity.getHealthStatus());
-        insertMedical.setVaccinationHistory(medicalEntity.getVaccinationHistory());
-        insertMedical.setStudentEntity(studentEntity);
+        insertMedical.setMedicalId(Objects.requireNonNull(medicalEntity.getMedicalId()));
+        insertMedical.setHealthStatus(Objects.requireNonNull(medicalEntity.getHealthStatus()));
+        insertMedical.setVaccinationHistory(Objects.requireNonNull(medicalEntity.getVaccinationHistory()));
+        insertMedical.setStudentEntity(Objects.requireNonNull(studentEntity));
 
         return medicalRepository.save(insertMedical);
     }
