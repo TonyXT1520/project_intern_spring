@@ -1,5 +1,6 @@
 package com.example.test_2.service.implement;
 
+import com.example.test_2.config.Validate;
 import com.example.test_2.entity.StudentEntity;
 import com.example.test_2.entity.TuitionEntity;
 import com.example.test_2.repository.StudentRepository;
@@ -30,6 +31,7 @@ public class TuitionServiceImplement implements TuitionService
     public TuitionEntity addTuition(Long studentId, TuitionEntity tuitionEntity) {
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(() -> new RuntimeException("Student not found"));
 
+        Validate.tuitionValidateDetails(Double.valueOf(tuitionEntity.getAmount()));
         TuitionEntity insertTuition = new TuitionEntity();
         insertTuition.setTuitionId(Objects.requireNonNull(tuitionEntity.getTuitionId()));
         insertTuition.setAmount(Objects.requireNonNull(tuitionEntity.getAmount()));
@@ -63,6 +65,7 @@ public class TuitionServiceImplement implements TuitionService
     @Transactional
     public TuitionResponse updateTuition(TuitionRequest tuitionRequest, Long tuitionId){
         TuitionEntity upload =tuitionRepository.findById(tuitionId).orElseThrow(()->new RuntimeException("tuition not found"));
+
 
         if(tuitionRequest.getPaymentStatus() != null) {
             upload.setPaymentStatus(tuitionRequest.getPaymentStatus());

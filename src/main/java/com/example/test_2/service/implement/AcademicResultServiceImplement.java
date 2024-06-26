@@ -1,5 +1,6 @@
 package com.example.test_2.service.implement;
 
+import com.example.test_2.config.Validate;
 import com.example.test_2.entity.AcademicResultEntity;
 
 import com.example.test_2.entity.StudentEntity;
@@ -27,9 +28,10 @@ public class AcademicResultServiceImplement implements AcademicResultService {
 
     @Override
     public AcademicResultEntity addAcademicResult(Long studentId, AcademicResultEntity academicResultEntity) {
+        Validate.resultValidateDetails(Double.valueOf(academicResultEntity.getScore()));
+
         StudentEntity studentEntity = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("student not found"));
         AcademicResultEntity insertAcademicResult = new AcademicResultEntity();
-
 
         insertAcademicResult.setResultId(Objects.requireNonNull(academicResultEntity.getResultId()));
         insertAcademicResult.setSubject(Objects.requireNonNull(academicResultEntity.getSubject()));
@@ -44,7 +46,7 @@ public class AcademicResultServiceImplement implements AcademicResultService {
     @Override
     public AcademicResultResponse updateAcademicResult(Long resultId, AcademicResultRequest academicResultRequest) {
         AcademicResultEntity academicResultEntity = academicResultRepository.findById(resultId).orElseThrow(()->new RuntimeException("result not found"));
-
+        Validate.resultValidateDetails(Double.valueOf(academicResultRequest.getScore()));
 
         if(academicResultRequest.getSubject() != null) {
             academicResultEntity.setSubject(academicResultRequest.getSubject());

@@ -1,5 +1,6 @@
 package com.example.test_2.service.implement;
 
+import com.example.test_2.config.Validate;
 import com.example.test_2.entity.FamilyEntity;
 import com.example.test_2.repository.FamilyRepository;
 import com.example.test_2.request.FamilyRequest;
@@ -22,6 +23,8 @@ public class FamilyServiceImplement implements FamilyService {
     @Override
     @Transactional
     public FamilyResponse addFamily(FamilyRequest familyRequest) {
+        Validate.familyValidateDetails(familyRequest.getFatherPhone(), familyRequest.getMotherPhone());
+
         FamilyEntity insertFamily = new FamilyEntity();
         insertFamily.setFamilyId(Objects.requireNonNull(familyRequest.getFamilyId()));
         insertFamily.setFatherName(Objects.requireNonNull(familyRequest.getFatherName()));
